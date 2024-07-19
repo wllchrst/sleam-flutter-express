@@ -8,6 +8,7 @@ class UserController {
         this.userRepository = UserRepository.getInstance()
 
         this.getAllUser = this.getAllUser.bind(this)
+        this.loginUser = this.loginUser.bind(this)
     }
 
     static getInstance() {
@@ -16,9 +17,15 @@ class UserController {
     }
 
     async getAllUser(req, res){
-        console.log(this.userRepository)
         const users = await this.userRepository.getAllUser();
-        res.status(200).send(users[0])
+        res.status(200).send(users)
+    }
+
+    async loginUser(req, res){
+        const requestBody = req.body
+        const user = await this.userRepository.getUserByCredential(requestBody.email, requestBody.password)
+        if(user == null) res.send("user not found")
+        res.send(user)
     }
 }
 

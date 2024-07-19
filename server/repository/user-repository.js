@@ -22,7 +22,18 @@ class UserRepository {
         }
     }
 
-    async getUser(id){
+    async getUserByCredential(email, password) {
+        try {
+            const query = "SELECT * FROM User WHERE email = ? AND password = ?"
+            const result = await this.database.query(query, [email, password])
+            return result   
+        } catch (error) {
+            console.error(error)
+            return null
+        }
+    }
+
+    async getUserById(id){
         try {
             const query = "SELECT * FROM User WHERE id = ?"
             const result = await this.database.query(query, [id])
