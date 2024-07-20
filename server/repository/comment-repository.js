@@ -14,12 +14,26 @@ class CommentRepository{
     }
 
     async getCommentByGameId(gameId){
-        const query = "SELECT * FROM Comment WHERE GameId = ?"
-        this.database
-        
+        try {
+            const query = "SELECT * FROM Comment WHERE GameId = ?"
+            const result = await this.database.query(query, [gameId])
+            return result[0]   
+        } catch (error) {
+            console.error(error)
+            return null
+        }
     }
 
     async createComment(id, userId, gameId, text){
-
+        try {
+            const query = "INSERT INTO Comment VALUES (?, ?, ?, ?)"
+            await this.database.query(query, [id, userId, gameId, text])   
+            return true
+        } catch (error) {
+            console.log(error);
+            return false
+        }
     }
 }
+
+module.exports = CommentRepository
