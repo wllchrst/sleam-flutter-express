@@ -3,10 +3,12 @@ const express = require('express');
 const UserRouter = require('./router/user-router');
 const GameRouter = require('./router/game-router');
 const CommentRouter = require('./router/comment-router.');
+const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT
 
 // Middleware
+app.use(cors())
 app.use(express.json()); // For parsing application/json
 
 // Routing
