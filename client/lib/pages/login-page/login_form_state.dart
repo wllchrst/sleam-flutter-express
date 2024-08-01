@@ -1,6 +1,9 @@
 import 'package:client/controllers/user_controllers.dart';
+import 'package:client/models/user.dart';
 import 'package:client/pages/login-page/login_form.dart';
+import 'package:client/service/shared-preference-service.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
@@ -45,13 +48,17 @@ class LoginFormState extends State<LoginForm> {
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 7.5)),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              print("button cliecked");
               if (_formKey.currentState?.validate() ?? false) {
                 final email = _emailController.text;
                 final password = _passwordController.text;
 
-                final response = authenticateUser(email, password);
-                print(response);
+                User? user = await authenticateUser(email, password);
+                if (user != null) {
+                  await SharedPreferenceService.saveUserId(user.id);
+                  context.go("/home");
+                }
               }
             },
             child: const Text("Login"),

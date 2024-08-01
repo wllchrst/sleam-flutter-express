@@ -1,29 +1,31 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-typedef JsonFactory<T> = T Function(Map<String, dynamic> json);
-
-class Service<T> {
+class Service {
   final String baseUrl = "http://localhost:3000/";
-  final JsonFactory<T> jsonFactory;
 
-  Service(this.jsonFactory);
-
-  Future<T> getData(String url) async {
-    print("Getting data $url");
-    final response = await http.get(Uri.parse(baseUrl + url));
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-      return jsonFactory(jsonResponse);
-    } else {
-      throw Exception('Failed to load data');
+  Future<String> get(String url) async {
+    try {
+      final response = await http.get(Uri.parse(this.baseUrl + url));
+      return response.body;
+    } catch (e) {
+      return "";
     }
   }
 
-  Future<void> postData(String url, T dataBody) {
-    
+  Future<String> post<T>(String url, T dataBody) async {
+    try {
+      final body = jsonEncode((dataBody as dynamic).toJson());
+      print(body);
+      final response = await http.post(Uri.parse(baseUrl + url),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          },
+          body: body);
+      return response.body;
+    } catch (e) {
+      print(e);
+      return "";
+    }
   }
-
 }
