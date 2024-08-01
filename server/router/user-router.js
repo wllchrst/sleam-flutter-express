@@ -11,7 +11,9 @@ class UserRouter {
 
     init () {
         this.app.get('/user', this.userController.getAllUser)
+        this.app.get('/user/:id', this.userController.getUser)
         this.app.post('/user', this.userController.loginUser)
+        this.app.post('/user/create', this.userController.createUser)
     }
 }
 
