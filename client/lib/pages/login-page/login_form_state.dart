@@ -49,7 +49,6 @@ class LoginFormState extends State<LoginForm> {
           const Padding(padding: EdgeInsets.symmetric(vertical: 7.5)),
           ElevatedButton(
             onPressed: () async {
-              print("button cliecked");
               if (_formKey.currentState?.validate() ?? false) {
                 final email = _emailController.text;
                 final password = _passwordController.text;

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:client/pages/home-page/home_page.dart';
 import 'package:client/pages/login-page/login_page.dart';
+import 'package:client/pages/main-screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uni_links/uni_links.dart';
@@ -24,7 +25,7 @@ class _MyAppState extends State<MyApp> {
           GoRoute(
             path: 'home',
             builder: (BuildContext context, GoRouterState state) {
-              return HomePage();
+              return MainScreen();
             },
           ),
         ],
