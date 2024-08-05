@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:client/models/game.dart';
+import 'package:client/pages/detail-page/detail-page.dart';
 import 'package:client/pages/home-page/home_page.dart';
 import 'package:client/pages/login-page/login_page.dart';
 import 'package:client/pages/main-screen/main_screen.dart';
@@ -28,6 +30,15 @@ class _MyAppState extends State<MyApp> {
               return MainScreen();
             },
           ),
+          GoRoute(
+            path: "detail",
+            builder: (BuildContext context, GoRouterState state) {
+              final game = state.extra as Game;
+              return DetailPage(
+                game: game,
+              );
+            },
+          )
         ],
       ),
     ],

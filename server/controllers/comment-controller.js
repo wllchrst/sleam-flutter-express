@@ -20,6 +20,7 @@ class CommentController {
     async createComment(req, res){
         try {
             const requestBody = req.body
+            console.log(requestBody)
             const id = v4()
             const result = await this.commentRepository.createComment(id, requestBody.userId, requestBody.gameId, requestBody.text)
             const message = result ? "Success creating comment" : "Something went wrong"

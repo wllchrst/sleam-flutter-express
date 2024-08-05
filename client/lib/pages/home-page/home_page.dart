@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      color: Colors.white, // Set background color
+      color: Theme.of(context).colorScheme.background,
       child: Column(
         children: [
           CarouselSlider(
@@ -45,8 +45,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(home: HomePage()));
 }

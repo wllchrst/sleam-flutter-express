@@ -27,6 +27,8 @@ class LoginFormState extends State<LoginForm> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Please enter your email";
+              } else if (!value.contains("@")) {
+                return "Email must contain @";
               }
               return null; // Return null if the input is valid
             },
@@ -42,6 +44,8 @@ class LoginFormState extends State<LoginForm> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Please enter your password";
+              } else if (value.length < 5) {
+                return "Password Length cannot be less than 5";
               }
               return null; // Return null if the input is valid
             },

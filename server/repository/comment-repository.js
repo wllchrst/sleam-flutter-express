@@ -15,9 +15,9 @@ class CommentRepository{
 
     async getCommentByGameId(gameId){
         try {
-            const query = "SELECT * FROM Comment WHERE GameId = ?"
+            const query = "SELECT c.*, u.Email FROM Comment c JOIN User u ON u.Id = c.UserId WHERE GameId = ?"
             const result = await this.database.query(query, [gameId])
-            return result[0]   
+            return result
         } catch (error) {
             console.error(error)
             return null
@@ -27,7 +27,7 @@ class CommentRepository{
     async createComment(id, userId, gameId, text){
         try {
             const query = "INSERT INTO Comment VALUES (?, ?, ?, ?)"
-            await this.database.query(query, [id, userId, gameId, text])   
+            await this.database.query(query, [id, gameId, userId, text])   
             return true
         } catch (error) {
             console.log(error);

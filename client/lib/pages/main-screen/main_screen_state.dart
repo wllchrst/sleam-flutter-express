@@ -1,4 +1,5 @@
 import 'package:client/pages/home-page/home_page.dart';
+import 'package:client/pages/item-page/item_page.dart';
 import 'package:client/pages/main-screen/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class MainScreenState extends State<MainScreen> {
 
   final List<Widget> _pages = [
     HomePage(),
-    const Center(child: Text('New Shit Content')),
+    ItemPage(),
     const Center(child: Text('Fuck You Content'))
   ];
 
@@ -20,8 +21,27 @@ class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text('Home Screen'),
+        title: const Text('Home Screen'),
+        actions: <Widget>[
+          PopupMenuButton(
+              onSelected: (String result) {},
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                    const PopupMenuItem<String>(
+                      value: 'Option 1',
+                      child: Text('Option 1'),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'Option 2',
+                      child: Text('Option 2'),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'Option 3',
+                      child: Text('Option 3'),
+                    ),
+                  ])
+        ],
         automaticallyImplyLeading: false,
       ),
       body: _pages[_selectedIndex],
@@ -33,11 +53,7 @@ class MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Page 2',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Home',
+            label: 'Items',
           ),
         ],
         currentIndex: _selectedIndex,
