@@ -49,7 +49,7 @@ class GameController {
             const gameId = req.params.id
             console.log(`game id ${gameId}`)
             const game = await this.gameRepository.getGameById(gameId)
-            if(game == null) res.status(404).send("there is no user")
+            if(game == null) res.status(404).send("There is no game with that id: " + gameId)
             res.status(200).send(game);
         } catch (error) {
             console.error(error)
